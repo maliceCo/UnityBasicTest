@@ -1,14 +1,19 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 
-public class Enemy : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     public Transform[] bulletsOrigin;
     public GameObject bulletPrefab;
-    private float remainingTime = 2f;
+    private float remainingTime = 0.5f;
     private bool isPlaying;
     private float nextBullet = 0;
+
+    public void Stop()
+    {
+        isPlaying = false;
+    }
 
     private IEnumerator Start()
     {
@@ -21,17 +26,14 @@ public class Enemy : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             isPlaying = false;
 
-        Debug.Log(Time.deltaTime);
-        Debug.Log(nextBullet);
-        
         if (isPlaying && nextBullet < Time.time)
         {
             nextBullet = Time.time + remainingTime;
-
             int pos = Random.Range(0, bulletsOrigin.Length);
+            //TODO-> bullet pool
             GameObject bullet = Instantiate(bulletPrefab, bulletsOrigin[pos].position, Quaternion.identity);
 
-            bullet.transform.DOMoveZ(-10, 2).SetEase(Ease.Linear);           
+            bullet.transform.DOMoveZ(-10, 2).SetEase(Ease.Linear);
         }
     }
 }

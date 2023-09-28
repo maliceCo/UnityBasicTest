@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
+    public Action OnDead;
     public Animator animator;
+
     private CharacterController characterController;
     private bool isRunning = false;
 
@@ -32,7 +35,7 @@ public class PlayerControl : MonoBehaviour
                 animator.SetBool("Running", isRunning);
             }
         }
-        else if(!isRunning)
+        else if (!isRunning)
         {
             animator.SetBool("Running", isRunning);
         }
@@ -41,5 +44,6 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         gameObject.SetActive(false);
+        OnDead?.Invoke();
     }
 }
