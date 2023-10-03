@@ -10,11 +10,6 @@ public class EnemyManager : MonoBehaviour
     private bool isPlaying;
     private float nextBullet = 0;
 
-    public void Stop()
-    {
-        isPlaying = false;
-    }
-
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2);
@@ -36,4 +31,9 @@ public class EnemyManager : MonoBehaviour
             bullet.transform.DOMoveZ(-10, 2).SetEase(Ease.Linear);
         }
     }
+    public void Stop()
+    {
+        isPlaying = false;
+    }
+
 }
